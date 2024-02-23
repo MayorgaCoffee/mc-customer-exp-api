@@ -1,0 +1,26 @@
+# Local Configuration
+
+# API Configuration
+api:
+  version: "/v1"
+  basePath: "/*"
+  
+# Certificate Configuration
+cert:
+  type: "PKCS12"
+  path: "certs/mayorgacert.p12"
+  alias: "mule-server"
+  
+# Crypto Certificate Configuration
+crypto:
+  public_keyring: "certs/MayorgaCoffee_0x123B380C_public.gpg"
+  private_keyring: "certs/MayorgaCoffee_0x123B380C_SECRET.gpg"
+  
+# Request Configuration
+https:
+  request:
+    port: "8082"
+    host: "localhost"
+    method: "POST"
+    basePath: "/document"
+    path: "inbound"  

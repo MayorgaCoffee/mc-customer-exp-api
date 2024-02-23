@@ -1,0 +1,6 @@
+# Qa Configuration
+
+# API Configuration
+api:
+  version: "/v1"
+  basePath: "/*"

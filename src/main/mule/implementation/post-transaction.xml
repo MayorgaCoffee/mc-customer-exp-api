@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:crypto="http://www.mulesoft.org/schema/mule/crypto"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="post-transaction-sub-flow" doc:id="97f19ee1-e2f9-4dc2-88c2-e160f8899612" >
+		<logger level="INFO" doc:name="START" doc:id="3a515d30-10ea-44e4-9379-af4230d17740" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;    flow : "Start of sub flow : " ++ flow.name,&#10;    message: "Post Transaction Sub Flow Started",&#10;    correlationId: vars.correlationId&#10;}]' />
+		<ee:transform doc:name="var : customerName &amp; transactionType" doc:id="5c639be8-6c51-4501-b37f-7ea8a1c72dab" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="customerName" ><![CDATA["Costco"]]></ee:set-variable>
+				<ee:set-variable variableName="transactionType" ><![CDATA["Customer"]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<crypto:pgp-encrypt doc:name="Encrypting EDI" doc:id="0a99d903-83c6-485b-9f80-67e4d7c62c98" config-ref="Crypto_Pgp" keyId="${secure::crypto.keyId}"/>
+		<http:request method="${https.request.method}" doc:name="POST: /document" doc:id="3d257cc8-a779-4c6d-b635-83c370ddc5c6" config-ref="mc_document_prc_api_request_config" path="/{customerName}/${https.request.path}/{transactionType}" sendCorrelationId="ALWAYS">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"customerName" : vars.customerName,
+	"transactionType" : vars.transactionType
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="END" doc:id="dd589547-0abb-4ff4-b0e4-2784d6d9f2e8" message='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;    flow : "End of sub flow : " ++ flow.name,&#10;    message: "Post Transaction Sub Flow Ended",&#10;    correlationId: vars.correlationId&#10;}]' />
+	</sub-flow>
+</mule>
