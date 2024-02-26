@@ -1,9 +1,0 @@
-%dw 2.0
-
-type auto_e6af83ad_c7c7_4b21_a260_c6b60775f0bd_Output_Payload = {
-  timeStamp: String, 
-  appName: String, 
-  message: String, 
-  _?: Any
-}
-

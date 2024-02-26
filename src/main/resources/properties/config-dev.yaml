@@ -13,14 +13,14 @@ cert:
 
 # Crypto Certificate Configuration  
 crypto:
-  public_keyring: "certs/MayorgaCoffee_0x123B380C_public.gpg"
-  private_keyring: "certs/MayorgaCoffee_0x123B380C_SECRET.gpg"
+  publicKeyring: "certs/MayorgaCoffee_0x123B380C_public.gpg"
+  privateKeyring: "certs/MayorgaCoffee_0x123B380C_SECRET.gpg"
   
-# Request Configuration
-https:
-  request:
-    port: ""
-    host: ""
-    method: "POST"
-    basePath: "/document"
-    path: "inbound"
+# Document Process API Configuration
+document.prc:
+   basePath: "/document"
+   procotol: "HTTPS"
+   host: ""
+   port: ""
+   method: "POST"
+   path: "inbound"

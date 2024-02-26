@@ -25,19 +25,19 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 http://www.mulesoft.org/schema/mule/crypto http://www.mulesoft.org/schema/mule/crypto/current/mule-crypto.xsd
 http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mule/as2-mule4/current/mule-as2-mule4.xsd">
 	<http:listener-config
-		name="mc_customer_exp_api_listener_config"
+		name="mc-customer-exp-api-listener-config"
 		doc:name="HTTP Listener config"
 		doc:id="af500fd2-9ffe-4a80-8c69-b0b6a83c247a">
-		<http:listener-connection host="${http.host}"
-			port="${https.port}" readTimeout="${http.readTimeout}"
-			protocol="HTTPS" tlsContext="TLS_Context" />
+		<http:listener-connection host="${https.host}"
+			port="${https.port}" readTimeout="${https.readTimeout}"
+			protocol="HTTPS" tlsContext="tls-context" />
 	</http:listener-config>
 	<apikit:config name="mc-customer-exp-api-config"
 		api="resource::d5150cda-4592-478a-b718-23ff3e2b60a3:mc-customer-exp-api:1.0.0:raml:zip:mc-customer-exp-api.raml"
 		outboundHeadersMapName="outboundHeaders"
 		httpStatusVarName="httpStatus" />
 	<http:request-config
-		name="mc_document_prc_api_request_config"
+		name="mc-document-prc-api-request-config"
 		doc:name="HTTP Request configuration"
 		doc:id="7217142b-8d66-440b-8fb4-2e60ae7f5e77"
 		basePath="${https.request.basePath}">
@@ -46,10 +46,10 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 			protocol="HTTPS" />
 	</http:request-config>
 	<as2-mule4:listener-config
-		name="AS2_Connector_Listener_config"
+		name="as2-connector-listener-config"
 		doc:name="AS2 Connector Listener config"
 		doc:id="8888a98e-00ff-45fa-9806-70cfa7e89244"
-		httpListenerConfig="mc_customer_exp_api_listener_config">
+		httpListenerConfig="mc-customer-exp-api-listener-config">
 		<as2-mule4:self-config as2Name="Mayorga"
 			x509Alias="mayorga-receiver" email="test@gmail.com" />
 		<as2-mule4:partner-config as2Name="Costco"
@@ -59,7 +59,7 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 			keystorePath="certs/mayorga-keystore.jks"
 			privateKeyPassword="MuleSoft@123" />
 	</as2-mule4:listener-config>
-	<crypto:pgp-config name="Crypto_Pgp"
+	<crypto:pgp-config name="crypto-pgp"
 		doc:name="Crypto Pgp" doc:id="aa385a30-64e6-4d0b-99e5-3ad319cd9b4e"
 		publicKeyring="${crypto.public_keyring}"
 		privateKeyring="${crypto.private_keyring}">
@@ -81,18 +81,12 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 		doc:name="Configuration properties"
 		doc:id="dd661869-d2fe-461c-85f2-4dd2c7f7243f"
 		file="properties\common\common.yaml" />
-	<global-property doc:name="Global Property"
-		doc:id="f0264f47-f82e-441f-88e9-6b2147863e3e" name="mule.env"
-		value="local" />
-	<global-property doc:name="Global Property"
-		doc:id="14bd9564-aedb-4814-9db7-1f8c2fcd1547" name="mule.key"
-		value="61D47E58735FE36A" />
 	<secure-properties:config
-		name="Secure_Properties_Config" doc:name="Secure Properties Config"
+		name="secure-properties-config" doc:name="Secure Properties Config"
 		doc:id="e497bea3-0c06-460a-8566-fbf1dc49b199"
 		file="properties/secure/config-${mule.env}-secure.yaml"
 		key="${mule.key}" />
-	<tls:context name="TLS_Context" doc:name="TLS Context"
+	<tls:context name="tls-context" doc:name="TLS Context"
 		doc:id="201f3f77-679a-4eac-b410-4cf4fb781a4e">
 		<tls:key-store type="${cert.type}" path="${cert.path}"
 			alias="${cert.alias}" keyPassword="${secure::cert.keyPassword}"

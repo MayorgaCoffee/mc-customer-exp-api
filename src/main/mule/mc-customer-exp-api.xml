@@ -11,7 +11,7 @@
 http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mule/as2-mule4/current/mule-as2-mule4.xsd">
 	<flow name="mc-customer-exp-api-main">
 		<http:listener
-			config-ref="mc_customer_exp_api_listener_config"
+			config-ref="mc-customer-exp-api-listener-config"
 			path="${api.version}${api.basePath}">
 			<http:response
 				statusCode="#[vars.httpStatus default 200]">
@@ -42,7 +42,7 @@ attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 	</flow>
 	<flow name="mc-customer-exp-api-flow"
 		doc:id="44e9c6ca-e9ca-4574-a314-dd771e818f1e">
-		<as2-mule4:as2-listener doc:name="As 2 listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="/document/inbound" config-ref="AS2_Connector_Listener_config"/>
+		<as2-mule4:as2-listener doc:name="As 2 listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="/document/inbound" config-ref="as2-connector-listener-config"/>
 		<ee:transform doc:name="var : correlationId" doc:id="f0091b59-f0a1-4772-aa99-f8550376071c">
 			<ee:message />
 			<ee:variables>

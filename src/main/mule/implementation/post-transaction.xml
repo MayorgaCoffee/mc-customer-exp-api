@@ -16,8 +16,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable variableName="transactionType" ><![CDATA["Customer"]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<crypto:pgp-encrypt doc:name="Encrypting EDI" doc:id="0a99d903-83c6-485b-9f80-67e4d7c62c98" config-ref="Crypto_Pgp" keyId="${secure::crypto.keyId}"/>
-		<http:request method="${https.request.method}" doc:name="POST: /document" doc:id="3d257cc8-a779-4c6d-b635-83c370ddc5c6" config-ref="mc_document_prc_api_request_config" path="/{customerName}/${https.request.path}/{transactionType}" sendCorrelationId="ALWAYS">
+		<crypto:pgp-encrypt doc:name="Encrypting EDI" doc:id="0a99d903-83c6-485b-9f80-67e4d7c62c98" config-ref="crypto-pgp" keyId="${secure::crypto.keyId}"/>
+		<http:request method="${https.request.method}" doc:name="POST: /document" doc:id="3d257cc8-a779-4c6d-b635-83c370ddc5c6" config-ref="mc-document-prc-api-request-config" path="/{customerName}/${https.request.path}/{transactionType}" sendCorrelationId="ALWAYS">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {
