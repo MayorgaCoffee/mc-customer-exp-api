@@ -42,7 +42,12 @@ attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 	</flow>
 	<flow name="mc-customer-exp-api-flow"
 		doc:id="44e9c6ca-e9ca-4574-a314-dd771e818f1e">
-		<as2-mule4:as2-listener doc:name="As 2 listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="/document/inbound" config-ref="as2-connector-listener-config"/>
+<!-- [STUDIO:"As 2 Listener"]		<as2-mule4:as2-listener doc:name="As 2 Listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="${as2.path}" config-ref="as2-connector-listener-config" connectionTimeout="${as2.connectionTimeout}"/> [STUDIO] -->
+		<scheduler doc:name="Scheduler" doc:id="bc6bda01-fa4c-4eab-8958-492467aa42e7" >
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</scheduler>
 		<ee:transform doc:name="var : correlationId" doc:id="f0091b59-f0a1-4772-aa99-f8550376071c">
 			<ee:message />
 			<ee:variables>
@@ -52,6 +57,7 @@ output application/java
 attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
+		<set-payload value='#["My name is Apurva Jalaik"]' doc:name="Set Payload" doc:id="050d9f2e-ebda-44cf-a776-1c34e2b49535" />
 		<flow-ref doc:name="post-transaction-sub-flow" doc:id="0c03e217-4e0c-49c6-ab19-21d5c8952f03" name="post-transaction-sub-flow"/>
 	</flow>
 </mule>

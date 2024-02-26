@@ -1,5 +1,10 @@
 # Local Secure Credentials
 
+# AS2 Listener Configurations
+as2:
+  keystorePassword: "![KvBwyxA97KBI1m0qTBlyQw==]"
+  privateKeyPassword: "![KvBwyxA97KBI1m0qTBlyQw==]"
+
 # Certificate Configuration
 cert:
   keyPassword: "![QUkJ2ogzXCbIGcgdr6IyNQ==]"

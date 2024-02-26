@@ -5,6 +5,18 @@ api:
   version: "/v1"
   basePath: "/*"
   
+# AS2 Listener Configuration
+as2:
+  path: "/document/inbound"
+  connectionTimeout: "0"
+  keystorePath: "certs/mayorga-keystore.jks"
+  selfName: "Mayorga"
+  selfAlias: "mayorga-receiver"
+  selfEmail: "test@gmail.com"
+  partnerName: "Costco"
+  partnerAlias: "costco-sender-public"
+  partnerEmail: "test1@gmail.com"
+  
 # Certificate Configuration
 cert:
   type: "PKCS12"
@@ -13,14 +25,13 @@ cert:
   
 # Crypto Certificate Configuration
 crypto:
-  public_keyring: "certs/MayorgaCoffee_0x123B380C_public.gpg"
-  private_keyring: "certs/MayorgaCoffee_0x123B380C_SECRET.gpg"
-  
-# Request Configuration
-https:
-  request:
-    port: "8082"
-    host: "localhost"
-    method: "POST"
-    basePath: "/document"
-    path: "inbound"  
+  publicKeyring: "certs/MayorgaCoffee_0x123B380C_public.gpg"
+  privateKeyring: "certs/MayorgaCoffee_0x123B380C_SECRET.gpg"
+      
+# Document Process API Configuration
+document.prc:
+   basePath: "/document"
+   protocol: "HTTPS"
+   host: "localhost"
+   port: "8082"
+   path: "inbound"

@@ -5,6 +5,18 @@ api:
   version: "/v1"
   basePath: "/*"
   
+# AS2 Listener Configuration
+as2:
+  path: "/document/inbound"
+  connectionTimeout: "0"
+  keystorePath: "certs/mayorga-keystore.jks"
+  selfName: "Mayorga"
+  selfAlias: "mayorga-receiver"
+  selfEmail: "test@gmail.com"
+  partnerName: "Costco"
+  partnerAlias: "costco-sender-public"
+  partnerEmail: "test1@gmail.com"
+  
 # Certificate Configuration
 cert:
   type: "PKCS12"
@@ -19,8 +31,7 @@ crypto:
 # Document Process API Configuration
 document.prc:
    basePath: "/document"
-   procotol: "HTTPS"
+   protocol: "HTTPS"
    host: ""
    port: ""
-   method: "POST"
    path: "inbound"

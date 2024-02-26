@@ -40,29 +40,29 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 		name="mc-document-prc-api-request-config"
 		doc:name="HTTP Request configuration"
 		doc:id="7217142b-8d66-440b-8fb4-2e60ae7f5e77"
-		basePath="${https.request.basePath}">
+		basePath="${document.prc.basePath}">
 		<http:request-connection
-			host="${https.request.host}" port="${https.request.port}"
-			protocol="HTTPS" />
+			host="${document.prc.host}" port="${document.prc.port}"
+			protocol="${document.prc.protocol}" />
 	</http:request-config>
 	<as2-mule4:listener-config
 		name="as2-connector-listener-config"
 		doc:name="AS2 Connector Listener config"
 		doc:id="8888a98e-00ff-45fa-9806-70cfa7e89244"
 		httpListenerConfig="mc-customer-exp-api-listener-config">
-		<as2-mule4:self-config as2Name="Mayorga"
-			x509Alias="mayorga-receiver" email="test@gmail.com" />
-		<as2-mule4:partner-config as2Name="Costco"
-			x509Alias="costco-sender-public" email="test1@gmail.com" />
+		<as2-mule4:self-config as2Name="${as2.selfName}"
+			x509Alias="${as2.selfAlias}" email="${as2.selfEmail}" />
+		<as2-mule4:partner-config as2Name="${as2.partnerName}"
+			x509Alias="${as2.partnerAlias}" email="${as2.partnerEmail}" />
 		<as2-mule4:key-store-config
-			keystorePassword="MuleSoft@123"
-			keystorePath="certs/mayorga-keystore.jks"
-			privateKeyPassword="MuleSoft@123" />
+			keystorePassword="${secure::as2.keystorePassword}"
+			keystorePath="${as2.keystorePath}"
+			privateKeyPassword="${secure::as2.privateKeyPassword}" />
 	</as2-mule4:listener-config>
 	<crypto:pgp-config name="crypto-pgp"
 		doc:name="Crypto Pgp" doc:id="aa385a30-64e6-4d0b-99e5-3ad319cd9b4e"
-		publicKeyring="${crypto.public_keyring}"
-		privateKeyring="${crypto.private_keyring}">
+		publicKeyring="${crypto.publicKeyring}"
+		privateKeyring="${crypto.privateKeyring}">
 		<crypto:pgp-key-infos>
 			<crypto:pgp-asymmetric-key-info
 				keyId="${secure::crypto.keyId}"
@@ -92,5 +92,7 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 			alias="${cert.alias}" keyPassword="${secure::cert.keyPassword}"
 			password="${secure::cert.password}" />
 	</tls:context>
+	<global-property doc:name="Global Property" doc:id="be9e7533-f06b-4393-9562-1b286da19a36" name="mule.env" value="local" />
+	<global-property doc:name="Global Property" doc:id="bc354b03-11df-4faa-82e3-a4ef708465b3" name="mule.key" value="61D47E58735FE36A" />
 	
 </mule>
