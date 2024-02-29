@@ -92,7 +92,5 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 			alias="${cert.alias}" keyPassword="${secure::cert.keyPassword}"
 			password="${secure::cert.password}" />
 	</tls:context>
-	<global-property doc:name="Global Property" doc:id="be9e7533-f06b-4393-9562-1b286da19a36" name="mule.env" value="local" />
-	<global-property doc:name="Global Property" doc:id="bc354b03-11df-4faa-82e3-a4ef708465b3" name="mule.key" value="61D47E58735FE36A" />
 	
 </mule>

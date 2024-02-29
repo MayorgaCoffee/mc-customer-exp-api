@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="error-handler-test-suite.xml" />
+	<munit:test
+		name="error-handling-Connectivity-error-test-suite"
+		doc:id="2fc197e8-26ca-447f-9f9b-6b753f2489c0" description="Test"
+		expectedErrorType="CONNECTIVITY">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="f0ea8eb5-de10-43de-85f4-cc90c82529ad"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="CONNECTIVITY" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main"
+				doc:id="73aae487-9d23-498b-a1fc-be23d9a2b5d3"
+				name="mc-customer-exp-api-main" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="fe2c7c8c-5556-4414-9eb4-7e256641e775"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="error-handling-Security-error-test-suite"
+		doc:id="58a351b2-2e9b-446b-aba5-da97913595a6" description="Test"
+		expectedErrorType="SECURITY">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="2f4cc490-e52f-46bb-811b-4824e1407495"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="SECURITY" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main"
+				doc:id="cbe07ab8-6bc7-4b6c-be9c-5be61b53edd6" name="mc-customer-exp-api-main"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="fdab11e6-f7f3-48c6-b709-13c2d7a7afe8"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+	<munit:test name="error-handling-Any-error-test-suite"
+		doc:id="0d28ab90-95b1-452c-96e2-88256e70f72b" description="Test"
+		expectedErrorType="ANY">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="15a23252-cedd-453b-bce8-7cf4ce7e361f"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="ANY" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main"
+				doc:id="dde20bec-1fec-4503-8191-021f766af007"
+				name="mc-customer-exp-api-main" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="7d343dda-cce8-46b1-a0e7-938ef6098674"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="error-handling-Unauthorized-error-test-suite"
+		doc:id="a824f57f-428b-45c7-8149-e57a0dd36496" description="Test"
+		expectedErrorType="HTTP:UNAUTHORIZED">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="cb7239ed-d6a2-4fe2-aa07-8c8c1d8ce59d"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="HTTP:UNAUTHORIZED" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="95198655-14af-4db1-bc11-1eeeef86c258" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="74eec185-8f5d-4e49-8faa-1ef4ea0f51e5"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="error-handling-Bad_Request-error-test-suite"
+		doc:id="c00f6ba5-bb0d-4f98-ab81-ba81a22cf4a5" description="Test"
+		expectedErrorType="HTTP:BAD_REQUEST">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="fe37c318-04da-48f9-856c-14f6a339cd20"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="HTTP:BAD_REQUEST" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="7ac98a50-e3c8-49ad-a6a8-d612c15ac8f2" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="053b764e-99be-4a63-bd9b-dab375695fca"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+	<munit:test name="error-handling-Not_Found-error-test-suite"
+		doc:id="6f5b1ae7-19f2-4aec-9f18-24ffefb87d3b" description="Test"
+		expectedErrorType="HTTP:NOT_FOUND">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="ed76b1b8-1562-41bd-9fc9-96c80540371a"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="f339f430-9385-407e-adc7-75195d650df2" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="506038dd-7ccb-4f4f-881b-bdcfbcfb372e"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+	<munit:test
+		name="error-handling-Method_Not_Allowed-error-test-suite"
+		doc:id="73823f94-7cf9-4de3-bf31-b36f7aafcfda" description="Test"
+		expectedErrorType="HTTP:METHOD_NOT_ALLOWED">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="aa7fd694-5d84-4751-924e-dbeed5601c52"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error
+						typeId="HTTP:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="88272242-44e5-44e2-a3cb-ca6fd8efc004" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="4f2b63f4-a9f1-40ac-bbbd-20e3317cb52c"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test
+		name="error-handling-Not_Acceptable-error-test-suite"
+		doc:id="7aeb0c4a-aa44-4c56-9b3d-11f044ff4e6e" description="Test"
+		expectedErrorType="HTTP:NOT_ACCEPTABLE">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="7d3a2d7e-aebf-4cba-83d2-3c3832f6e03c"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="HTTP:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="91309998-c960-4f23-a1c6-3b27f9e81521" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="3149eb37-f0bb-4f38-be7e-467c069deddf"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+	<munit:test
+		name="error-handling-Unsupported_Media_Type-error-test-suite"
+		doc:id="0cff135c-e2eb-46b0-9a5d-9122927ad416" description="Test"
+		expectedErrorType="HTTP:UNSUPPORTED_MEDIA_TYPE">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="b2e8f73a-a164-402d-84d3-57dce2fd5d52"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error
+						typeId="HTTP:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="872113a2-81f6-4a20-84c2-e8dcdf5aa160" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="78039b2c-632c-422b-b161-85911353cd37"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+	<munit:test
+		name="error-handling-Not_Implemented-error-test-suite"
+		doc:id="be039f2e-4e06-4baf-92b7-3c53fe53edba" description="Test"
+		expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+		<munit:behavior>
+			<munit-tools:mock-when
+				doc:name="Mock : Apikit Router"
+				doc:id="14be7e61-f985-47ac-a560-8b17a66cffda"
+				processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error
+						typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="mc-customer-exp-api-main" doc:id="c1004859-407a-4e6e-8f80-27636b20a413" name="mc-customer-exp-api-main" />
+		
+</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call
+				doc:name="Apikit Router"
+				doc:id="4f011dab-f1f8-44f8-81b5-5e5a66b25edb"
+				processor="apikit:router" atLeast="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="mc-customer-exp-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+</mule>
+	
+	
+	
+
+

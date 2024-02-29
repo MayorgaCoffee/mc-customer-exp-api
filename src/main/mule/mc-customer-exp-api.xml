@@ -9,7 +9,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
 http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mule/as2-mule4/current/mule-as2-mule4.xsd">
-	<flow name="mc-customer-exp-api-main">
+	<flow name="mc-customer-exp-api-main" doc:id="7c62d3ce-6796-4617-b815-efb05f8df365">
 		<http:listener
 			config-ref="mc-customer-exp-api-listener-config"
 			path="${api.version}${api.basePath}">
@@ -35,19 +35,14 @@ attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 		</ee:transform>
 		<apikit:router config-ref="mc-customer-exp-api-config" />
 	</flow>
-	<flow name="get:\healthCheck:mc-customer-exp-api-config">
+	<flow name="get:\healthCheck:mc-customer-exp-api-config" doc:id="7f7bf41e-8357-4f34-8316-d067e6e12bbf">
 		<flow-ref doc:name="health-check-sub-flow"
 			doc:id="5ba24f62-11a6-4640-b20a-e5dfc6321555"
 			name="health-check-sub-flow" />
 	</flow>
 	<flow name="mc-customer-exp-api-flow"
 		doc:id="44e9c6ca-e9ca-4574-a314-dd771e818f1e">
-<!-- [STUDIO:"As 2 Listener"]		<as2-mule4:as2-listener doc:name="As 2 Listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="${as2.path}" config-ref="as2-connector-listener-config" connectionTimeout="${as2.connectionTimeout}"/> [STUDIO] -->
-		<scheduler doc:name="Scheduler" doc:id="bc6bda01-fa4c-4eab-8958-492467aa42e7" >
-			<scheduling-strategy >
-				<fixed-frequency />
-			</scheduling-strategy>
-		</scheduler>
+		<as2-mule4:as2-listener doc:name="As 2 Listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="${as2.path}" config-ref="as2-connector-listener-config" connectionTimeout="${as2.connectionTimeout}"/>
 		<ee:transform doc:name="var : correlationId" doc:id="f0091b59-f0a1-4772-aa99-f8550376071c">
 			<ee:message />
 			<ee:variables>
@@ -57,7 +52,6 @@ output application/java
 attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<set-payload value='#["My name is Apurva Jalaik"]' doc:name="Set Payload" doc:id="050d9f2e-ebda-44cf-a776-1c34e2b49535" />
 		<flow-ref doc:name="post-transaction-sub-flow" doc:id="0c03e217-4e0c-49c6-ab19-21d5c8952f03" name="post-transaction-sub-flow"/>
 	</flow>
 </mule>
