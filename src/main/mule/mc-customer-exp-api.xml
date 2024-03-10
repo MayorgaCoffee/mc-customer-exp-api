@@ -42,7 +42,13 @@ attributes.headers.'X-Correlation-Id' default correlationId]]></ee:set-variable>
 	</flow>
 	<flow name="mc-customer-exp-api-flow"
 		doc:id="44e9c6ca-e9ca-4574-a314-dd771e818f1e">
-		<as2-mule4:as2-listener doc:name="As 2 Listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="${as2.path}" config-ref="as2-connector-listener-config" connectionTimeout="${as2.connectionTimeout}"/>
+				<as2-mule4:as2-listener doc:name="As 2 Listener" doc:id="3ed1e570-181c-488b-a75b-ebeb9c99d33a" path="${as2.path}" config-ref="as2-connector-listener-config" connectionTimeout="${as2.connectionTimeout}"/>
+<!-- [STUDIO:"Scheduler"]		<scheduler doc:name="Scheduler" doc:id="e5f4204c-b501-42c7-b1ce-036d03eb092b" >
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+		</scheduler> [STUDIO] -->
+<!-- [STUDIO:"EDI Message"]		<set-payload value='#[output text/plain&#10;&#45;&#45;-&#10;read("ST*850*0001~&#10;BEG*00*SA*00847008667856**20240131~&#10;REF*X9*3433086851~&#10;REF*IA*0006746100~&#10;REF*CO*1091973735~&#10;DTM*004*20240131*15122900*20~&#10;DTM*006*20240131*14084300*20~&#10;TD5*****UPSN_CG~&#10;N9*SD*Web~&#10;N1*BT*Jane Dahlgren Bopp~&#10;N3*1420 BRADFORD DR~&#10;N4*COLUMBIA*MO*652032302*US~&#10;PER*BD**TE*2034285966***EM*dahlgrenbopp@yahoo.com~&#10;N1*ST*JANE DAHLGREN BOPP*93*00011~&#10;N3*1420 BRADFORD DR~&#10;N4*COLUMBIA*MO*652032302*US~&#10;PER*BD**TE*2034285966*NP*2034285966*EM*dahlgrenbopp@yahoo.com~&#10;N1*SF*ROCKVILLE WH~&#10;N3*1029 E GUDE DR~&#10;N4*ROCKVILLE*MD*20850*US~&#10;PO1*01*1*EA*26.4*TE*SK*1589882*VN*1589882~&#10;PID*F*08***ORGANIC MAYAN BLEND~&#10;PID*F*GEN***6746100~&#10;PO4******5*LB~&#10;REF*DP*13~&#10;DTM*002*20240208~&#10;DTM*038*20240202~&#10;TD5*****UPSN_CG~&#10;CTT*1~&#10;SE*30*0001~","text/plain")&#93;' doc:name="EDI Message" doc:id="fa64a270-fed2-445d-a059-b3474542e2b6" /> [STUDIO] -->
 		<ee:transform doc:name="var : correlationId" doc:id="f0091b59-f0a1-4772-aa99-f8550376071c">
 			<ee:message />
 			<ee:variables>

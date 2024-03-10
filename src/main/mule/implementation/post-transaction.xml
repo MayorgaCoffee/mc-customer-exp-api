@@ -12,12 +12,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<ee:message >
 			</ee:message>
 			<ee:variables >
-				<ee:set-variable variableName="customerName" ><![CDATA["Costco"]]></ee:set-variable>
-				<ee:set-variable variableName="transactionType" ><![CDATA["Customer"]]></ee:set-variable>
+				<ee:set-variable variableName="customerName" ><![CDATA["costcoDS"]]></ee:set-variable>
+				<ee:set-variable variableName="transactionType" ><![CDATA["850"]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<crypto:pgp-encrypt doc:name="Encrypting EDI" doc:id="0a99d903-83c6-485b-9f80-67e4d7c62c98" config-ref="crypto-pgp" keyId="${secure::crypto.keyId}"/>
-		<http:request method="POST" doc:name="POST: /document.prc" doc:id="3d257cc8-a779-4c6d-b635-83c370ddc5c6" config-ref="mc-document-prc-api-request-config" path="/{customerName}/${document.prc.path}/{transactionType}" sendCorrelationId="ALWAYS" correlationId="#[vars.correlationId]">
+		<http:request method="POST" doc:name="POST: /document.prc" doc:id="3d257cc8-a779-4c6d-b635-83c370ddc5c6" config-ref="mc-document-prc-api-request-config" sendCorrelationId="ALWAYS" correlationId="#[vars.correlationId]" path="/{customerName}/${document.prc.path}/{transactionType}">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
 {

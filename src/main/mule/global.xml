@@ -49,7 +49,7 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 		name="as2-connector-listener-config"
 		doc:name="AS2 Connector Listener config"
 		doc:id="8888a98e-00ff-45fa-9806-70cfa7e89244"
-		httpListenerConfig="mc-customer-exp-api-listener-config">
+		httpListenerConfig="as2-listener-config">
 		<as2-mule4:self-config as2Name="${as2.selfName}"
 			x509Alias="${as2.selfAlias}" email="${as2.selfEmail}" />
 		<as2-mule4:partner-config as2Name="${as2.partnerName}"
@@ -92,5 +92,8 @@ http://www.mulesoft.org/schema/mule/as2-mule4 http://www.mulesoft.org/schema/mul
 			alias="${cert.alias}" keyPassword="${secure::cert.keyPassword}"
 			password="${secure::cert.password}" />
 	</tls:context>
+	<http:listener-config name="as2-listener-config" doc:name="HTTP Listener config" doc:id="03e89a8c-2b05-4e7b-bca0-d93783abc146" >
+		<http:listener-connection host="0.0.0.0" port="8083" />
+	</http:listener-config>
 	
 </mule>

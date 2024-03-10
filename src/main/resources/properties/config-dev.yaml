@@ -30,8 +30,8 @@ crypto:
   
 # Document Process API Configuration
 document.prc:
-   basePath: "/document"
+   basePath: "/api/document"
    protocol: "HTTPS"
-   host: ""
+   host: "mc-document-prc-api-dev.us-e2.cloudhub.io"
    port: ""
    path: "inbound"
